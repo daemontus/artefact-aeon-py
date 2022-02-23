@@ -14,7 +14,14 @@ The runner can operate in three modes:
 
 For each run, runner creates a new output directory whose name contains the name of the benchmarked python script, model directory, timestamp, and flag whether the run was parallel. Additionally, runner compiles a `.csv` file with runtimes for each benchmark, and an aggregated `.csv` file with "instances completed before time".
 
-Before starting, make sure you have AEON.py installed (`pip install biodivine_aeon`). On macOS, you'll also need `gtimeout` (coreutils). AEON.py should be fully multiplatform, other tools were only tested on **linux**. `CABEAN` and `iFVS` are provided in the repository. Python library `pystablemotifs` must be installed according to instructions provided [here](https://github.com/jcrozum/pystablemotifs).
+Before starting, make sure:
+ - You have AEON.py installed (`pip install biodivine_aeon`). 
+ - On macOS, you'll also need `gtimeout` (coreutils). 
+ - AEON.py should be fully multiplatform, other tools were only tested on Linux. 
+ - But they should also work on other systems in theory -- you may need to switch binaries in the scripts to the appropriate OS tohugh. 
+ - `CABEAN` and `iFVS` are provided in the repository. 
+ - `pystablemotifs` must be installed according to instructions provided [here](https://github.com/jcrozum/pystablemotifs).
+ - Also, make sure you have Z3 installed.
 
 Runner invocation:
 
