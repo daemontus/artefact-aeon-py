@@ -1,5 +1,7 @@
 .DS_Store
 _run_*
+./CABEAN-release-2.0.1/*.bnet
+./CABEAN-release-2.0.1/*.ispl
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,0 +1,12 @@
+CABEAN 1.0.1:
+add support for bnet files
+Set several command options as default
+
+CABEAN 1.0.2:
+fix the bug for converting model files
+
+CABEAN 2.0.0 
+add three target control methods
+
+CABEAN 2.0.1
+add target control of a phenotype
