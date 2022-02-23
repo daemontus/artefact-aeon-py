@@ -58,7 +58,10 @@ if __name__ == "__main__":
 		return benchmark.endswith(".aeon")
 
 	# Create output directory
-	OUT_DIR = "_run_" + BENCH_DIR + "_" + SCRIPT + "_" + str(int(time.time()))
+	OUT_DIR = BENCH_DIR + "_" + SCRIPT
+	if PARALLEL > 0:
+		OUT_DIR = OUT_DIR + "_parallel"
+	OUT_DIR = "_run_" + OUT_DIR + "_" + str(int(time.time()))
 	os.mkdir(OUT_DIR)
 
 	# Create output stats file
