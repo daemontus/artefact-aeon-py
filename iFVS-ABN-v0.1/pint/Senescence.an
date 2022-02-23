@@ -1,0 +1,253 @@
+(* This model has been automatically generated using colomoto/logicalmodels
+ * You may want to optimize this model for pint using the following command:
+       pint-export --simplify -i model.an -o model.an
+ * where model.an is this file.
+ *)
+
+"Akt" [0, 1]
+"AP1" [0, 1]
+"ATM" [0, 1]
+"ATR" [0, 1]
+"CDK2" [0, 1]
+"CDK4" [0, 1]
+"CEBPbeta" [0, 1]
+"cFos" [0, 1]
+"CHK1" [0, 1]
+"CHK2" [0, 1]
+"cJun" [0, 1]
+"E2F" [0, 1]
+"Elk1" [0, 1]
+"ERK1_2" [0, 1]
+"GP130" [0, 1]
+"HIF1" [0, 1]
+"IkB" [0, 1]
+"IKK" [0, 1]
+"IL1" [0, 1]
+"IL1R" [0, 1]
+"IL6" [0, 1]
+"IL6R" [0, 1]
+"IL8" [0, 1]
+"IRAK" [0, 1]
+"JAK" [0, 1]
+"JNK" [0, 1]
+"MDM2" [0, 1]
+"MEK1_2" [0, 1]
+"MEKK" [0, 1]
+"MKK" [0, 1]
+"MKP1" [0, 1]
+"mTOR" [0, 1]
+"MyD88" [0, 1]
+"NEMO" [0, 1]
+"NFkB" [0, 1]
+"NIK" [0, 1]
+"Oncogene" [0, 1]
+"p16INK4" [0, 1]
+"p21" [0, 1]
+"p38" [0, 1]
+"p53" [0, 1]
+"PI3K" [0, 1]
+"pRB" [0, 1]
+"RB" [0, 1]
+"SOCS3" [0, 1]
+"STAT3" [0, 1]
+"TAB" [0, 1]
+"TAK1" [0, 1]
+"TRAF6" [0, 1]
+"Hypoxia" [0, 1]
+"DNAD" [0, 1]
+
+"Akt" 1 -> 0 when "PI3K"=0
+"Akt" 0 -> 1 when "PI3K"=1
+
+"AP1" 1 -> 0 when "cFos"=0
+"AP1" 1 -> 0 when "cFos"=1 and "cJun"=0
+"AP1" 0 -> 1 when "cFos"=1 and "cJun"=1
+
+"ATM" 1 -> 0 when "DNAD"=0
+"ATM" 0 -> 1 when "DNAD"=1
+
+"ATR" 1 -> 0 when "DNAD"=0
+"ATR" 0 -> 1 when "DNAD"=1
+
+"CDK2" 1 -> 0 when "E2F"=0
+"CDK2" 0 -> 1 when "E2F"=1 and "p21"=0
+"CDK2" 1 -> 0 when "E2F"=1 and "p21"=1
+
+"CDK4" 0 -> 1 when "p16INK4"=0 and "p21"=0
+"CDK4" 1 -> 0 when "p16INK4"=0 and "p21"=1
+"CDK4" 1 -> 0 when "p16INK4"=1
+
+"CEBPbeta" 1 -> 0 when "Elk1"=0
+"CEBPbeta" 0 -> 1 when "Elk1"=1
+
+"cFos" 1 -> 0 when "CEBPbeta"=0 and "Elk1"=0 and "JNK"=0 and "p38"=0 and "STAT3"=0
+"cFos" 0 -> 1 when "CEBPbeta"=0 and "Elk1"=0 and "JNK"=0 and "p38"=0 and "STAT3"=1
+"cFos" 0 -> 1 when "CEBPbeta"=0 and "Elk1"=0 and "JNK"=0 and "p38"=1
+"cFos" 0 -> 1 when "CEBPbeta"=0 and "Elk1"=0 and "JNK"=1
+"cFos" 0 -> 1 when "CEBPbeta"=0 and "Elk1"=1
+"cFos" 0 -> 1 when "CEBPbeta"=1
+
+"CHK1" 1 -> 0 when "ATR"=0
+"CHK1" 0 -> 1 when "ATR"=1
+
+"CHK2" 1 -> 0 when "ATM"=0
+"CHK2" 0 -> 1 when "ATM"=1
+
+"cJun" 1 -> 0 when "CEBPbeta"=0 and "cFos"=0
+"cJun" 1 -> 0 when "CEBPbeta"=0 and "cFos"=1 and "ERK1_2"=0 and "JNK"=0 and "p38"=0
+"cJun" 0 -> 1 when "CEBPbeta"=0 and "cFos"=1 and "ERK1_2"=0 and "JNK"=0 and "p38"=1
+"cJun" 0 -> 1 when "CEBPbeta"=0 and "cFos"=1 and "ERK1_2"=0 and "JNK"=1
+"cJun" 0 -> 1 when "CEBPbeta"=0 and "cFos"=1 and "ERK1_2"=1
+"cJun" 1 -> 0 when "CEBPbeta"=1 and "cFos"=0
+"cJun" 0 -> 1 when "CEBPbeta"=1 and "cFos"=1
+
+"E2F" 0 -> 1 when "pRB"=1 and "RB"=0
+"E2F" 1 -> 0 when "RB"=1
+
+"Elk1" 1 -> 0 when "ERK1_2"=0
+"Elk1" 0 -> 1 when "ERK1_2"=1
+
+"ERK1_2" 1 -> 0 when "IL6"=0
+"ERK1_2" 1 -> 0 when "IL6"=1 and "MEK1_2"=0
+"ERK1_2" 0 -> 1 when "IL6"=1 and "MEK1_2"=1
+
+"GP130" 1 -> 0 when "IL6"=0
+"GP130" 0 -> 1 when "IL6"=1
+
+"HIF1" 1 -> 0 when "p53"=0 and "Hypoxia"=0
+"HIF1" 0 -> 1 when "p53"=0 and "Hypoxia"=1
+"HIF1" 1 -> 0 when "p53"=1
+
+"IkB" 0 -> 1 when "IKK"=0 and "NFkB"=1
+"IkB" 0 -> 1 when "IKK"=1 and "NEMO"=0 and "NFkB"=1
+"IkB" 1 -> 0 when "IKK"=1 and "NEMO"=1
+
+"IKK" 1 -> 0 when "Akt"=0 and "NEMO"=0 and "NIK"=0
+"IKK" 0 -> 1 when "Akt"=0 and "NEMO"=0 and "NIK"=1
+"IKK" 0 -> 1 when "Akt"=0 and "NEMO"=1
+"IKK" 0 -> 1 when "Akt"=1
+
+"IL1" 1 -> 0 when "NFkB"=0
+"IL1" 0 -> 1 when "NFkB"=1
+
+"IL1R" 1 -> 0 when "IL1"=0
+"IL1R" 0 -> 1 when "IL1"=1
+
+"IL6" 1 -> 0 when "CEBPbeta"=0 and "ERK1_2"=0 and "NFkB"=0
+"IL6" 0 -> 1 when "CEBPbeta"=0 and "ERK1_2"=0 and "NFkB"=1
+"IL6" 0 -> 1 when "CEBPbeta"=0 and "ERK1_2"=1
+"IL6" 0 -> 1 when "CEBPbeta"=1
+
+"IL6R" 1 -> 0 when "IL6"=0
+"IL6R" 0 -> 1 when "IL6"=1
+
+"IL8" 1 -> 0 when "AP1"=0 and "CEBPbeta"=0 and "NFkB"=0
+"IL8" 0 -> 1 when "AP1"=0 and "CEBPbeta"=0 and "NFkB"=1
+"IL8" 0 -> 1 when "AP1"=0 and "CEBPbeta"=1
+"IL8" 0 -> 1 when "AP1"=1
+
+"IRAK" 0 -> 1 when "IL1R"=0 and "MyD88"=1
+"IRAK" 0 -> 1 when "IL1R"=1
+
+"JAK" 1 -> 0 when "IL6R"=0
+"JAK" 0 -> 1 when "IL6R"=1 and "SOCS3"=0
+"JAK" 1 -> 0 when "IL6R"=1 and "SOCS3"=1
+
+"JNK" 1 -> 0 when "MKK"=0
+"JNK" 0 -> 1 when "MKK"=1 and "MKP1"=0
+"JNK" 1 -> 0 when "MKK"=1 and "MKP1"=1
+
+"MDM2" 1 -> 0 when "ATM"=0 and "p53"=0
+"MDM2" 0 -> 1 when "ATM"=0 and "p53"=1
+"MDM2" 1 -> 0 when "ATM"=1
+
+"MEK1_2" 1 -> 0 when "GP130"=0
+"MEK1_2" 1 -> 0 when "GP130"=1 and "IL6"=0
+"MEK1_2" 0 -> 1 when "GP130"=1 and "IL6"=1
+
+"MEKK" 1 -> 0 when "TRAF6"=0
+"MEKK" 0 -> 1 when "TRAF6"=1
+
+"MKK" 1 -> 0 when "MEKK"=0 and "TAK1"=0
+"MKK" 0 -> 1 when "MEKK"=0 and "TAK1"=1
+"MKK" 0 -> 1 when "MEKK"=1
+
+"MKP1" 1 -> 0 when "AP1"=0
+"MKP1" 0 -> 1 when "AP1"=1
+
+"mTOR" 1 -> 0 when "Akt"=0
+"mTOR" 0 -> 1 when "Akt"=1
+
+"MyD88" 1 -> 0 when "IL1R"=0
+"MyD88" 0 -> 1 when "IL1R"=1
+
+"NEMO" 1 -> 0 when "DNAD"=0
+"NEMO" 0 -> 1 when "DNAD"=1
+
+"NFkB" 1 -> 0 when "IkB"=0 and "IKK"=0
+"NFkB" 0 -> 1 when "IkB"=0 and "IKK"=1
+"NFkB" 1 -> 0 when "IkB"=1
+
+"NIK" 1 -> 0 when "TAK1"=0
+"NIK" 0 -> 1 when "TAK1"=1
+
+"Oncogene" 1 -> 0 when "IL6"=0 and "IL8"=0
+"Oncogene" 0 -> 1 when "IL6"=0 and "IL8"=1
+"Oncogene" 0 -> 1 when "IL6"=1
+
+"p16INK4" 1 -> 0 when "Oncogene"=0 and "DNAD"=0
+"p16INK4" 0 -> 1 when "Oncogene"=0 and "DNAD"=1
+"p16INK4" 0 -> 1 when "Oncogene"=1
+
+"p21" 1 -> 0 when "HIF1"=0 and "p53"=0
+"p21" 0 -> 1 when "HIF1"=0 and "p53"=1
+"p21" 0 -> 1 when "HIF1"=1
+
+"p38" 1 -> 0 when "MKK"=0
+"p38" 0 -> 1 when "MKK"=1 and "MKP1"=0
+"p38" 1 -> 0 when "MKK"=1 and "MKP1"=1
+
+"p53" 1 -> 0 when "ATM"=0 and "CHK1"=0 and "CHK2"=0
+"p53" 0 -> 1 when "ATM"=0 and "CHK1"=0 and "CHK2"=1 and "MDM2"=0
+"p53" 1 -> 0 when "ATM"=0 and "CHK1"=0 and "CHK2"=1 and "MDM2"=1
+"p53" 0 -> 1 when "ATM"=0 and "CHK1"=1 and "MDM2"=0
+"p53" 1 -> 0 when "ATM"=0 and "CHK1"=1 and "MDM2"=1
+"p53" 0 -> 1 when "ATM"=1 and "MDM2"=0
+"p53" 1 -> 0 when "ATM"=1 and "MDM2"=1
+
+"PI3K" 1 -> 0 when "JAK"=0
+"PI3K" 0 -> 1 when "JAK"=1
+
+"pRB" 1 -> 0 when "CDK2"=0 and "CDK4"=0
+"pRB" 0 -> 1 when "CDK2"=0 and "CDK4"=1
+"pRB" 0 -> 1 when "CDK2"=1
+
+"RB" 0 -> 1 when "CDK2"=0 and "CDK4"=0 and "pRB"=0
+"RB" 1 -> 0 when "CDK2"=0 and "CDK4"=0 and "pRB"=1
+"RB" 1 -> 0 when "CDK2"=0 and "CDK4"=1
+"RB" 1 -> 0 when "CDK2"=1
+
+"SOCS3" 1 -> 0 when "STAT3"=0
+"SOCS3" 0 -> 1 when "STAT3"=1
+
+"STAT3" 1 -> 0 when "cFos"=0 and "JAK"=0 and "mTOR"=0
+"STAT3" 0 -> 1 when "cFos"=0 and "JAK"=0 and "mTOR"=1
+"STAT3" 0 -> 1 when "cFos"=0 and "JAK"=1
+"STAT3" 1 -> 0 when "cFos"=1 and "cJun"=0 and "JAK"=0 and "mTOR"=0
+"STAT3" 0 -> 1 when "cFos"=1 and "cJun"=0 and "JAK"=0 and "mTOR"=1
+"STAT3" 0 -> 1 when "cFos"=1 and "cJun"=0 and "JAK"=1
+"STAT3" 0 -> 1 when "cFos"=1 and "cJun"=1
+
+"TAB" 1 -> 0 when "IRAK"=0 and "TRAF6"=0
+"TAB" 0 -> 1 when "IRAK"=0 and "TRAF6"=1
+"TAB" 0 -> 1 when "IRAK"=1
+
+"TAK1" 1 -> 0 when "TAB"=0 and "TRAF6"=0
+"TAK1" 0 -> 1 when "TAB"=0 and "TRAF6"=1
+"TAK1" 0 -> 1 when "TAB"=1
+
+"TRAF6" 1 -> 0 when "IRAK"=0
+"TRAF6" 0 -> 1 when "IRAK"=1
+
+
+

@@ -1,0 +1,19 @@
+iFVS-ARBN v0.1
+Author: Trinh Van Giang and Kunihiko Hiraishi
+Email: giang-trinh@jaist.ac.jp
+
+Requirements:
+- Operating system: Linux
+- JRE version 1.8 or higher
+- GCC version 7.3.0 or higher
+- Clingo (https://sourceforge.net/projects/potassco/files/clingo/)
+
+Usage:  
+java -jar iFVS-ARBN.jar BNFile.bnet
+
+*The BN file must be a file with extension .bnet with BoolNet format (http://colomoto.org/biolqm/doc/format-bnet.html).
+*The BN file must be placed in the "networks" folder.
+*The ANN file must be a file with extension .an with Pint format (http://colomoto.org/biolqm/doc/format-pint.html). A BN file can be converted into an ANN file using bioLQM (http://colomoto.org/biolqm).
+*The ANN file must be placed in the "pint" folder.
+*The BN file and the ANN file must have the same name.
+*Please don't delete the "pns" and "pint" folders.
