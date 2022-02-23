@@ -9,12 +9,12 @@ The `run.py` script ("runner") makes it possible to run a particular python scri
 The runner can operate in three modes:
 
 1. Interactive: Before each experiment is started, you are prompted to either run it or skip it. You can also abort the whole run.
-2. Sequential: Experiments run autonatically one after the other.
+2. Sequential: Experiments run automatically one after the other.
 3. Parallel: Up to `N` (user provided) experiments are executed in parallel (as separate processes).
 
 For each run, runner creates a new output directory whose name contains the name of the benchmarked python script, model directory, timestamp, and flag whether the run was parallel. Additionally, runner compiles a `.csv` file with runtimes for each benchmark, and an aggregated `.csv` file with "instances completed before time".
 
-Before starting, make sure you have AEON.py installed (`pip install biodivine_aeon`). On macOS, you'll also need `gtimeout` (coreutils). AEON.py should be fully multiplatform, other tools were only tested on **linux**.
+Before starting, make sure you have AEON.py installed (`pip install biodivine_aeon`). On macOS, you'll also need `gtimeout` (coreutils). AEON.py should be fully multiplatform, other tools were only tested on **linux**. `CABEAN` and `iFVS` are provided in the repository. Python library `pystablemotifs` must be installed according to instructions provided [here](https://github.com/jcrozum/pystablemotifs).
 
 Runner invocation:
 
@@ -24,8 +24,8 @@ python3 run.py TIMEOUT BENCH_DIR SCRIPT [-i/-p N]
 
  - `TIMEOUT` is a standard timeout string. E.g. `1h`, `10s`, etc.
  - `BENCH_DIR` is a path to a directory which will be scanned to obtain the list of experiments (`.aeon` files).
- - `SCRIPT` is a path to a Python script which will be started by the runner, with an experiment file (`.aeon` file) as first argument. Naturally, this script can then start other native processes if necessary.
- - Add `-i` if you want to use interactive mode.
+ - `SCRIPT` is a path to a Python script which will be started by the runner, with an experiment file (`.aeon` file) as the first argument. Naturally, this script can then start other native processes if necessary, or modify the model as desired.
+ - Add `-i` if you want to use the interactive mode.
  - Add `-p N` if you want to run up to `N` experiments in parallel.
 
 > WARNING: The script does not respond particularly well to keyboard interrupts. If you kill the benchmark runner (e.g. `Ctrl+C`), you may need to manually terminate some of the unfinished experiments.
@@ -43,4 +43,8 @@ There are several pre-configured benchmark scripts which you can use. Of course,
 python3 run.py 1h all-models attractors-true-aeon.py
 # Use CABEAN
 python3 run.py 1h all-models attractors-true-cabean.py
+# Use iFVS
+python3 run.py 1h all-models attractors-true-ifvs.py
+# Use pystablemotifs
+python3 run.py 1h all-models attractors-true-pystable.py
 ```
