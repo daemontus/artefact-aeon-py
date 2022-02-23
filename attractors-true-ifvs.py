@@ -3,6 +3,7 @@ import os
 
 from biodivine_aeon import *
 from pathlib import Path
+from utils import fix_inputs_true, set_canonical_names
 
 model_path = sys.argv[1]
 print("Model path", model_path)
