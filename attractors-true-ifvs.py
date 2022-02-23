@@ -19,6 +19,7 @@ name = os.path.basename(model_path)
 Path("./iFVS-ABN-v0.1/networks/"+name.replace("aeon", "bnet")).write_text(model.to_bnet())
 
 os.chdir('iFVS-ABN-v0.1')
+os.system('export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:'+os.getcwd())
 code = os.system('java -jar iFVS-ABN.jar '+name.replace("aeon", "bnet"))
 print("Exit code", code)
 exit(code)
