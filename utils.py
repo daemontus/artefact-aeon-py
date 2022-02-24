@@ -1,3 +1,4 @@
+from biodivine_aeon import *
 
 # Ensures that every logical input has its value fixed to true.
 def fix_inputs_true(network):	
