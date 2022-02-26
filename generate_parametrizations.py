@@ -3,6 +3,7 @@ import os
 
 from biodivine_aeon import *
 from pathlib import Path
+from utils import set_canonical_names
 
 
 # fix input values of @network according to @input_val_dict dictionary
@@ -53,13 +54,18 @@ if __name__ == "__main__":
     model_inputs = [gr.get_variable_name(v) for v in gr.variables() if not gr.regulators(v)]
     print(f"Model has {len(model_inputs)} inputs: ", model_inputs)
 
+    print("Renaming variables to canonical forms.")
+    fixed_network = set_canonical_names(nw)
+    gr = nw.graph()
+    model_inputs = [gr.get_variable_name(v) for v in gr.variables() if not gr.regulators(v)]
+
     dir_name = f"./all-parametrizations/{Path(model_path).stem}"
     os.makedirs(dir_name, exist_ok=True)
     print(f"Creating {2 ** len(model_inputs)} files in {dir_name}.")
 
     for bool_vec in generate_bool_vectors(len(model_inputs)):
-        file_name = f"{bool_vec_to_str(bool_vec)}.aeon"
+        name = f"{bool_vec_to_str(bool_vec)}"
         input_dict = {in_name: in_val for (in_name, in_val) in zip(model_inputs, bool_vec)}
         fixed_network = fix_inputs(nw, input_dict)
-        Path(f"{dir_name}/{file_name}").write_text(fixed_network.to_aeon())
+        Path(f"{dir_name}/{name}.aeon").write_text(fixed_network.to_aeon())
 
