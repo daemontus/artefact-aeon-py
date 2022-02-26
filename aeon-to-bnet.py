@@ -3,7 +3,7 @@ import os
 
 from biodivine_aeon import *
 from pathlib import Path
-from utils import fix_inputs_true, set_canonical_names
+from utils import set_canonical_names
 
 
 def is_aeon(file):
@@ -11,7 +11,7 @@ def is_aeon(file):
 
 
 if __name__ == "__main__":
-    print("Converting models form aeon format to bnet")
+    print("Converting models from aeon format to bnet")
     input_dir = sys.argv[1].strip("/")
     print("Directory with models:", input_dir)
 
@@ -25,13 +25,13 @@ if __name__ == "__main__":
 
         model_string = Path(f"{input_dir}/{model_file}").read_text()
         model = BooleanNetwork.from_aeon(model_string)
-        fixed_network = fix_inputs_true(model)
 
         # TODO: enable this after problem problem with canonization is fixed
+        # for now aeon input is expected to be canonical
         # fixed_network = set_canonical_names(fixed_network)
 
-        Path(f"{input_dir}/{output_file}").write_text(fixed_network.to_bnet())
+        Path(f"{input_dir}/{output_file}").write_text(model.to_bnet())
         print("Saving output to: ", f"{input_dir}/{output_file}")
-        Path(output_path_ifvs).write_text(fixed_network.to_bnet())
+        Path(output_path_ifvs).write_text(model.to_bnet())
         print("Saving output to: ", output_path_ifvs)
 
