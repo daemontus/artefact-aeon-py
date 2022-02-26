@@ -61,11 +61,13 @@ python3 run.py 1h all-models-inputs-true attractors-true-ifvs.py
 python3 run.py 1h all-models-inputs-true attractors-true-pystable.py
 ```
 
-### Attractors over all possible parametrisations of model
+### Attractors over all possible parametrisations of particular model
 
 ```
 # Generate model file for each parametrisation of given network
 python3 generate_parametrizations.py model_path
+# Create also bnet versions of those models (other tools require them)
+python3 aeon-to-bnet.py all-parametrisations/model_name
 
 # TODO
 
