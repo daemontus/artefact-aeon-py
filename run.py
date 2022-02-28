@@ -11,7 +11,7 @@ def SPAWN(command):
 	result = os.system(command)
 	sys.exit(result)
 
-# Regex used for parsing the standardised output of 
+# Regex used for parsing the standardised output of
 # UNIX time utility (when invoked with -p argument)
 RE_TIME = re.compile("\\s*real\\s*(\\d+\\.?\\d*)\\s*")
 
@@ -58,18 +58,18 @@ if __name__ == "__main__":
 		return benchmark.endswith(".aeon")
 
 	# Create output directory
-	OUT_DIR = BENCH_DIR + "_" + SCRIPT
+	OUT_DIR = BENCH_DIR.replace("/", "_") + "_" + SCRIPT
 	if PARALLEL > 0:
 		OUT_DIR = OUT_DIR + "_parallel"
 	OUT_DIR = "_run_" + OUT_DIR + "_" + str(int(time.time()))
 	os.mkdir(OUT_DIR)
 
 	# Create output stats file
-	TIMES = open(OUT_DIR + "/" + BENCH_DIR + "_" + SCRIPT + "_times.csv", "w")
+	TIMES = open(OUT_DIR + "/" + BENCH_DIR.replace("/", "_") + "_" + SCRIPT + "_times.csv", "w")
 	TIMES.write("Benchmark, Time[s]\n")
 
 	# Create an aggregated stats file
-	AGGREGATION = open(OUT_DIR + "/" + BENCH_DIR + "_" + SCRIPT + "_aggregated.csv", "w")
+	AGGREGATION = open(OUT_DIR + "/" + BENCH_DIR.replace("/", "_") + "_" + SCRIPT + "_aggregated.csv", "w")
 	AGGREGATION.write("Time[s], No. Completed\n")
 
 	# Here, save all runtimes.
@@ -81,20 +81,20 @@ if __name__ == "__main__":
 	# Handle data from a finished process. In particular,
 	# update AGGREGATION_LIST and TIMES file.
 	def PROCESS_RESULT(process, output_file):
-		print("Finished:", output_file)	
+		print("Finished:", output_file)
 		is_success = process.exitcode == 0
 		with open(output_file, 'r') as f:
 			lines = f.read().splitlines()
 			# Try to parse runtime statistics.
 			# Time stats are three lines from the end.
-			if len(lines) >= 3:			
-				time_line = lines[-3]			
+			if len(lines) >= 3:
+				time_line = lines[-3]
 				if RE_TIME.match(time_line) and is_success:
 					# Success, we found time!
 					time = str(RE_TIME.match(time_line).group(1))
 					print("Success. Elapsed: ", time)
 					TIMES.write(name + ", " + time + "\n")
-					AGGREGATION_LIST.append(float(time))				
+					AGGREGATION_LIST.append(float(time))
 				else:
 					# Fail: output exists but does not have
 					# correct time format.
