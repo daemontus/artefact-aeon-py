@@ -46,12 +46,37 @@ There are several pre-configured benchmark scripts which you can use. Of course,
 ### Attractors (inputs fixed to true)
 
 ```
+# Generate model with inputs fixed to true for each network (aeon format)
+python3 fix-inputs-true.py all-models
+# Create also bnet versions of those models (other tools require them)
+python3 aeon-to-bnet.py all-models-inputs-true
+
 # Use AEON.py
-python3 run.py 1h all-models attractors-true-aeon.py
+python3 run.py 1h all-models-inputs-true attractors-aeon-basic.py
 # Use CABEAN
-python3 run.py 1h all-models attractors-true-cabean.py
+python3 run.py 1h all-models-inputs-true attractors-cabean-basic.py
 # Use iFVS
-python3 run.py 1h all-models attractors-true-ifvs.py
+python3 run.py 1h all-models-inputs-true attractors-ifvs-basic.py
 # Use pystablemotifs
-python3 run.py 1h all-models attractors-true-pystable.py
+python3 run.py 1h all-models-inputs-true attractors-pystable-basic.py
+```
+
+### Attractors over all possible parametrisations of particular model
+
+```
+# Substitute model_path and model_name for actual names
+# Generate model file for each parametrisation of the given network
+python3 generate-parametrizations.py model_path
+# Create also bnet versions of those models (other tools require them)
+python3 aeon-to-bnet.py all-parametrisations/model_name
+
+# Use AEON.py
+python3 run.py 1h all-parametrisations/model_name attractors-aeon-basic.py
+# Use CABEAN
+python3 run.py 1h all-parametrisations/model_name attractors-cabean-basic.py
+# Use iFVS
+python3 run.py 1h all-parametrisations/model_name attractors-ifvs-basic.py
+# Use pystablemotifs
+python3 run.py 1h all-parametrisations/model_name attractors-pystable-basic.py
+
 ```

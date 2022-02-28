@@ -3,6 +3,8 @@ _run_*
 ./CABEAN-release-2.0.1/*.bnet
 ./CABEAN-release-2.0.1/*.ispl
 iFVS-ABN-v0.1/networks/*.bnet
+all-models-inputs-true/
+all-parametrizations/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
