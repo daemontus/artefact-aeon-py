@@ -78,7 +78,7 @@ if __name__ == '__main__':
                         datefmt='%Y-%m-%d %H:%M:%S')
 
     model_path = Path(sys.argv[1])
-    logging.info("Model path", model_path)
+    logging.info("Model path %s", model_path)
     results = benchmark_model(model_path)
 
     header = [('model', 'target_ix', 'source_ix', 'one_step_time', 'permanent_time', 'temporary_time')]
