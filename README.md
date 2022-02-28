@@ -80,3 +80,15 @@ python3 run.py 1h all-parametrisations/model_name attractors-ifvs-basic.py
 python3 run.py 1h all-parametrisations/model_name attractors-pystable-basic.py
 
 ```
+
+### Source-target control benchmark
+
+Finally, you can also benchmark different types of source-target control algorithms for a particular model using the following command:
+
+```
+# Run a single model without timeout
+python3 source-target-control.py path/to/model.aeon
+
+# Run the whole directory with timeout-per-model.
+python3 run.py 1h run.py selected-models-control source-target-control.py 
+```
