@@ -26,9 +26,10 @@ if __name__ == "__main__":
         model_string = Path(f"{input_dir}/{model_file}").read_text()
         model = BooleanNetwork.from_aeon(model_string)
 
-        # TODO: enable this after problem problem with canonization is fixed
-        # for now aeon input is expected to be canonical
-        # fixed_network = set_canonical_names(fixed_network)
+        # Note that this assumes that the names of the network variables
+        # are already in canonical format (i.e. x1...xN) to avoid
+        # errors in bnet export. This is facilitated by 
+        # fix-inputs-true.py and generate-parametrizations.py for now.
 
         Path(f"{input_dir}/{output_file}").write_text(model.to_bnet())
         print("Saving output to: ", f"{input_dir}/{output_file}")
