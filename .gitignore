@@ -5,6 +5,7 @@ _run_*
 iFVS-ABN-v0.1/networks/*.bnet
 all-models-inputs-true/
 all-parametrizations/
+control-inputs/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

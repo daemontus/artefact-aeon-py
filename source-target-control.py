@@ -5,6 +5,7 @@ import time
 from pathlib import Path
 from statistics import mean
 
+from utils import fix_inputs_false
 from biodivine_aeon import *
 
 
@@ -17,9 +18,10 @@ from biodivine_aeon import *
 def attractor_colors(vertex: [bool], perturbation_graph: PerturbationGraph):
     graph = perturbation_graph.as_perturbed()
     colored_vertex = graph.fix_vertex(vertex)
-    fwd = graph.post(colored_vertex)
-    bwd = graph.pre(colored_vertex)
+    fwd = reach_fwd(graph, colored_vertex)
+    bwd = reach_bwd(graph, colored_vertex)
     scc = fwd.intersect(bwd)
+    print("SCC", scc)
     not_attractor_colors = fwd.minus(scc).colors()
     return scc.minus_colors(not_attractor_colors).colors()
 
@@ -27,7 +29,8 @@ def attractor_colors(vertex: [bool], perturbation_graph: PerturbationGraph):
 def measure(fun, target_ix, source_ix):
     logging.info(f"Starting measuring from {source_ix} to {target_ix}")
     start = time.time()
-    fun()
+    result = fun()
+    print("Result:",result.as_colored_vertices())
     end = time.time()
     logging.info(f"Measuring from {source_ix} to {target_ix} finished. ")
     return end - start
@@ -50,16 +53,21 @@ def benchmark_model(model_file_path):
     logging.info(f"total cardinality: {symbolic_async_graph.unit_colored_vertices().cardinality()}")
 
     logging.info(find_attractors(symbolic_async_graph))
-    witness = SymbolicAsyncGraph(symbolic_async_graph.pick_witness(symbolic_async_graph.unit_colors()))
+    #witness = SymbolicAsyncGraph(symbolic_async_graph.pick_witness(symbolic_async_graph.unit_colors()))
+    witness = SymbolicAsyncGraph(fix_inputs_false(symbolic_async_graph.network()))
     attractor_vertices = [a.pick_vertex().vertices().vertices()[0] for a in find_attractors(witness)]
     logging.info(f"attractor count: {len(attractor_vertices)}")
 
     for i, target in enumerate(attractor_vertices[:8]):
-        perturbation_graph = PerturbationGraph(boolean_network)
-        colors = attractor_colors(target, perturbation_graph)
+        perturbation_graph = PerturbationGraph(witness.network())
+        colors = perturbation_graph.mk_unit_colored_vertices().colors() #attractor_colors(target, perturbation_graph)
+        print("Colors", colors)
         for j, source in enumerate(attractor_vertices[:8]):
             if i == j:
                 continue
+            print("Source", source)
+            print("Target", target)
+            print(witness.network().to_aeon())
             one_step_time = measure(lambda: perturbation_graph.one_step_control(source, target, colors), i, j)
             permanent_time = measure(lambda: perturbation_graph.permanent_control(source, target, colors), i, j)
             temporary_time = measure(lambda: perturbation_graph.temporary_control(source, target, colors), i, j)

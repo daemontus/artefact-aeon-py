@@ -1,6 +1,27 @@
 from biodivine_aeon import *
 
 
+def fix_inputs_free(network):
+    graph = network.graph()
+    for v in graph.variables():
+        # For parameters, remove update function and replace with true
+        if len(graph.regulators(v)) == 0:
+            name = graph.get_variable_name(v)
+            print("Found parameter", name, "-- set to free.")
+            network.set_update_function(v, None)  # Set to true
+    return network
+
+def fix_inputs_false(network):
+    graph = network.graph()
+    for v in graph.variables():
+        # For parameters, remove update function and replace with true
+        if len(graph.regulators(v)) == 0:
+            name = graph.get_variable_name(v)
+            print("Found parameter", name, "-- Fixed to false.")
+            network.set_update_function(v, "false")  # Set to true
+    return network
+
+
 # Ensures that every logical input has its value fixed to true.
 def fix_inputs_true(network):
     graph = network.graph()
