@@ -3,7 +3,7 @@ import os
 
 from biodivine_aeon import *
 from pathlib import Path
-from utils import set_canonical_names, fix_inputs_false
+from utils import set_canonical_names, fix_inputs_false, fix_inputs_free
 
 def pick_pairs(attractor_witnesses):
 	pairs = []
@@ -29,9 +29,13 @@ if __name__ == "__main__":
 	print(f"Model has {len(model_inputs)} inputs: ", model_inputs)
 
 	print("Renaming variables to canonical forms.")
-	canonical_network = nw#set_canonical_names(nw)
+	canonical_network = set_canonical_names(nw)
 	fixed_network = fix_inputs_false(canonical_network)
-    
+
+    # This little hack should ensure the network has the same variable ordering
+    # as the one we forward to the actual computation, since the source-target vertices
+    # are sensitive to variable ordering.
+	fixed_network = BooleanNetwork.from_aeon(fixed_network.to_aeon())
 
 	dir_name = f"./control-inputs/{Path(model_path).stem}"
 	os.makedirs(dir_name, exist_ok=True)
@@ -47,7 +51,6 @@ if __name__ == "__main__":
     # Because inputs are fixed, there should be no colors and each attractor
     # is therefore really a single unique attractor.
 	attractor_witnesses = [attr.pick_vertex().vertices().vertices()[0] for attr in attractors]
-
 
 	source_target_pairs = pick_pairs(attractor_witnesses)
 

@@ -23,7 +23,6 @@ target = ast.literal_eval(lines[1][1:])
 print("Source:", source)
 print("Target:", target)
 
-print(model.to_aeon())
 graph = PerturbationGraph(model)
 
 all_colors = graph.mk_unit_colored_vertices().colors()

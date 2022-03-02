@@ -26,6 +26,7 @@ print("Target:", target)
 graph = PerturbationGraph(model)
 
 all_colors = graph.mk_unit_colored_vertices().colors()
+print("Colors:", all_colors)
 
 control_map = graph.permanent_control(source, target, all_colors)
 print("Control map computed:", control_map.as_colored_vertices())
