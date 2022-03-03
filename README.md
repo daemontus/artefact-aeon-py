@@ -86,9 +86,14 @@ python3 run.py 1h all-parametrisations/model_name attractors-pystable-basic.py
 Finally, you can also benchmark different types of source-target control algorithms for a particular model using the following command:
 
 ```
-# Run a single model without timeout
-python3 source-target-control.py path/to/model.aeon
+# Generate source-target combinations for a particular model:
+python3 generate-control.py path/to/model-name.aeon
 
-# Run the whole directory with timeout-per-model.
-python3 run.py 1h run.py selected-models-control source-target-control.py 
+# Run control experiments for the generated source-target pairs:
+python3 run.py 1h run.py control-inputs/model-name control-one-step.py
+python3 run.py 1h run.py control-inputs/model-name control-permanent.py
+python3 run.py 1h run.py control-inputs/model-name control-temporary.py
+
+# Of course, you can also use control-one-step.py, control-permanent.py and control-temporary.py
+# to run experiments on specific generated models in the control-inputs directory.
 ```
