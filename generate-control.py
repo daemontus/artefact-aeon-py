@@ -52,17 +52,11 @@ if __name__ == "__main__":
     # is therefore really a single unique attractor.
 	attractor_witnesses = [attr.pick_vertex().vertices().vertices()[0] for attr in attractors]
 
-	source_target_pairs = pick_pairs(attractor_witnesses)
+	print(f"Creating {len(attractor_witnesses)} control input files in {dir_name}.")
 
-	print(f"Creating {len(source_target_pairs)} control input files in {dir_name}.")
-
-	for i, st in enumerate(source_target_pairs):
-		source,target = st
-		print("-- Control pair:")
-		print("Source:", source)
-		print("Target:", target)
+	for i, target in enumerate(attractor_witnesses):
+		print("-- Target:", target)
 		model_string = ""
-		model_string += f"#{source}\n"
 		model_string += f"#{target}\n"
 		model_string += fixed_network.to_aeon()
 		Path(f"{dir_name}/{i+1}.aeon").write_text(model_string)

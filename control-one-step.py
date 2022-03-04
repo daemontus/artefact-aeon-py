@@ -16,9 +16,9 @@ print("Loaded model with", model.num_vars(), "variables.")
 
 lines = model_string.splitlines()
 
-# Expects that first two lines are source/target
-source = ast.literal_eval(lines[0][1:])
-target = ast.literal_eval(lines[1][1:])
+# Expects that first line is the target state
+target = ast.literal_eval(lines[0][1:])
+source = [not x for x in target]
 
 print("Source:", source)
 print("Target:", target)
