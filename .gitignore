@@ -6,6 +6,7 @@ iFVS-ABN-v0.1/networks/*.bnet
 all-models-inputs-true/
 all-parametrizations/
 control-inputs/
+control-inputs-free/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
