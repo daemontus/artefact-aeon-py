@@ -3,7 +3,7 @@ import os
 
 from biodivine_aeon import *
 from pathlib import Path
-from utils import set_canonical_names, fix_inputs_false, fix_inputs_free
+from utils import set_canonical_names, fix_inputs_false, fix_inputs_free, inline_free_inputs
 
 def pick_pairs(attractor_witnesses):
 	pairs = []
@@ -30,7 +30,7 @@ if __name__ == "__main__":
 
 	print("Renaming variables to canonical forms.")
 	canonical_network = set_canonical_names(nw)
-	fixed_network = fix_inputs_free(canonical_network)
+	fixed_network = inline_free_inputs(canonical_network)
 
     # This little hack should ensure the network has the same variable ordering
     # as the one we forward to the actual computation, since the source-target vertices
@@ -50,11 +50,15 @@ if __name__ == "__main__":
     # Contains vertices that are guaranteed to be in different attractors.
     # Because inputs are fixed, there should be no colors and each attractor
     # is therefore really a single unique attractor.
-	attractor_witnesses = [attr.pick_vertex().vertices().vertices()[0] for attr in attractors]
+	attractor_witnesses = [attr.pick_vertex().vertices().vertices() for attr in attractors]
+	attractor_witnesses = sum(attractor_witnesses, [])
 
-	print(f"Creating {len(attractor_witnesses)} control input files in {dir_name}.")
+	print(f"Creating {len(attractor_witnesses)} (max. 16) control input files in {dir_name}.")
 
 	for i, target in enumerate(attractor_witnesses):
+		# Only save the first 10 options
+		if i >= 16:
+			break
 		print("-- Target:", target)
 		model_string = ""
 		model_string += f"#{target}\n"
