@@ -45,6 +45,7 @@ def bool_vec_to_str(bool_vector):
     return "".join([f"{int(b)}" for b in bool_vector])
 
 
+# transforms integer to corresponding boolean vector of given size
 def int_to_bool_vec(num: int, vec_len: int):
     bool_vec = [False for _ in range(vec_len)]
     index = vec_len - 1
@@ -55,6 +56,8 @@ def int_to_bool_vec(num: int, vec_len: int):
     return bool_vec
 
 
+# common functionality of both generating methods
+# prints basic information about input model, extracts BN + input list
 def extract_network_and_inputs(model_path: str):
     print("Model path:", model_path)
     model_string = Path(model_path).read_text()
@@ -70,6 +73,7 @@ def extract_network_and_inputs(model_path: str):
     return nw, model_inputs
 
 
+# generates network with fixed inputs for every possible valuation
 def generate_all_parametrizations(model_path: str):
     nw, model_inputs = extract_network_and_inputs(model_path)
 
@@ -84,6 +88,7 @@ def generate_all_parametrizations(model_path: str):
         Path(f"{dir_name}/{name}.aeon").write_text(fixed_network.to_aeon())
 
 
+# generates networks with fixed inputs for @sample_size randomly selected valuations
 def generate_random_parametrizations(model_path: str, sample_size: int):
     nw, model_inputs = extract_network_and_inputs(model_path)
 
@@ -112,18 +117,13 @@ def generate_random_parametrizations(model_path: str, sample_size: int):
 
 
 if __name__ == "__main__":
-    RANDOM_SAMPLE_SIZE = 2048
-
-    if len(sys.argv) != 3:
-        print("Wrong number of arguments, expected 2, got", len(sys.argv))
-        print("Usage: generate_parametrizations.py input_file [all|random]")
-    elif sys.argv[2] == "all":
+    if len(sys.argv) == 2:
         print(f"All parametrizations of model {sys.argv[1]} will be generated.")
         generate_all_parametrizations(sys.argv[1])
-    elif sys.argv[2] == "random":
-        print(f"{RANDOM_SAMPLE_SIZE} random parametrizations of model {sys.argv[1]} will be generated.")
-        generate_random_parametrizations(sys.argv[1], RANDOM_SAMPLE_SIZE)
+    elif len(sys.argv) == 4 and sys.argv[2] == "-random" and sys.argv[3].isdecimal():
+        print(f"{sys.argv[3]} random parametrizations of model {sys.argv[1]} will be generated.")
+        generate_random_parametrizations(sys.argv[1], int(sys.argv[3]))
     else:
-        print("Wrong argument", sys.argv[2])
-        print("Usage: generate_parametrizations.py input_file [all|random]")
+        print("Wrong number of arguments or unexpected argument.")
+        print("Usage: generate_parametrizations.py input_file [-random num_samples]")
 
