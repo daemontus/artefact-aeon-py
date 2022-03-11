@@ -153,7 +153,7 @@ if __name__ == "__main__":
 			process = Process(target=SPAWN, args=(command,))
 			process.start()
 			process.join()
-			PROCESS_RESULT(process, output_file)
+			PROCESS_RESULT(process, name, output_file)
 
 
 	# At this point, TIMES should be up-to-date, but we
