@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
 	# Handle data from a finished process. In particular,
 	# update AGGREGATION_LIST and TIMES file.
-	def PROCESS_RESULT(process, output_file):
+	def PROCESS_RESULT(process, name, output_file):
 		print("Finished:", output_file)
 		is_success = process.exitcode == 0
 		with open(output_file, 'r') as f:
@@ -124,14 +124,14 @@ if __name__ == "__main__":
 				command = TIMEOUT + " " + CUT_OFF + " time -p python3 " + SCRIPT + " " + input_file + " > " + output_file + " 2>&1"
 				process = Process(target=SPAWN, args=(command,))
 				process.start()
-				ACTIVE.append((process, output_file))			
+				ACTIVE.append((process, name, output_file))			
 			time.sleep(1) # Sleep 1s
 			STILL_ACTIVE = []
-			for (process, output_file) in ACTIVE:
+			for (process, name, output_file) in ACTIVE:
 				if process.is_alive():
-					STILL_ACTIVE.append((process, output_file))
+					STILL_ACTIVE.append((process, name, output_file))
 				else:
-					PROCESS_RESULT(process, output_file)
+					PROCESS_RESULT(process, name, output_file)
 			ACTIVE = STILL_ACTIVE
 	else:
 		for bench in BENCHMARKS:
