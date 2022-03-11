@@ -65,19 +65,41 @@ python3 run.py 1h all-models-inputs-true attractors-pystable-basic.py
 
 ```
 # Substitute model_path and model_name for actual names
+
 # Generate model file for each parametrisation of the given network
 python3 generate-parametrizations.py model_path
 # Create also bnet versions of those models (other tools require them)
-python3 aeon-to-bnet.py all-parametrisations/model_name
+python3 aeon-to-bnet.py all-parametrizations/model_name
 
 # Use AEON.py
-python3 run.py 1h all-parametrisations/model_name attractors-aeon-basic.py
+python3 run.py 1h all-parametrizations/model_name attractors-aeon-basic.py
 # Use CABEAN
-python3 run.py 1h all-parametrisations/model_name attractors-cabean-basic.py
+python3 run.py 1h all-parametrizations/model_name attractors-cabean-basic.py
 # Use iFVS
-python3 run.py 1h all-parametrisations/model_name attractors-ifvs-basic.py
+python3 run.py 1h all-parametrizations/model_name attractors-ifvs-basic.py
 # Use pystablemotifs
-python3 run.py 1h all-parametrisations/model_name attractors-pystable-basic.py
+python3 run.py 1h all-parametrizations/model_name attractors-pystable-basic.py
+
+```
+
+### Attractors over random sample of parametrizations of particular model
+
+```
+# Substitute model_path, model_name, sample_size for actual names/values
+
+# Generate number of networks with randomly fixed inputs from the given model
+python3 generate-parametrizations.py model_path -random sample_size
+# Create also bnet versions of those models (other tools require them)
+python3 aeon-to-bnet.py random-parametrizations/model_name
+
+# Use AEON.py
+python3 run.py 1h random-parametrizations/model_name attractors-aeon-basic.py
+# Use CABEAN
+python3 run.py 1h random-parametrizations/model_name attractors-cabean-basic.py
+# Use iFVS
+python3 run.py 1h random-parametrizations/model_name attractors-ifvs-basic.py
+# Use pystablemotifs
+python3 run.py 1h random-parametrizations/model_name attractors-pystable-basic.py
 
 ```
 
