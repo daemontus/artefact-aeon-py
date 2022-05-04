@@ -58,18 +58,18 @@ if __name__ == "__main__":
 		return benchmark.endswith(".aeon")
 
 	# Create output directory
-	OUT_DIR = BENCH_DIR.replace("/", "_") + "_" + SCRIPT
+	OUT_DIR = BENCH_DIR.replace("/", "_") + "_" + os.path.basename(SCRIPT)
 	if PARALLEL > 0:
 		OUT_DIR = OUT_DIR + "_parallel"
 	OUT_DIR = "_run_" + OUT_DIR + "_" + str(int(time.time()))
 	os.mkdir(OUT_DIR)
 
 	# Create output stats file
-	TIMES = open(OUT_DIR + "/" + BENCH_DIR.replace("/", "_") + "_" + SCRIPT + "_times.csv", "w")
+	TIMES = open(OUT_DIR + "/" + BENCH_DIR.replace("/", "_") + "_" + os.path.basename(SCRIPT) + "_times.csv", "w")
 	TIMES.write("Benchmark, Time[s]\n")
 
 	# Create an aggregated stats file
-	AGGREGATION = open(OUT_DIR + "/" + BENCH_DIR.replace("/", "_") + "_" + SCRIPT + "_aggregated.csv", "w")
+	AGGREGATION = open(OUT_DIR + "/" + BENCH_DIR.replace("/", "_") + "_" + os.path.basename(SCRIPT) + "_aggregated.csv", "w")
 	AGGREGATION.write("Time[s], No. Completed\n")
 
 	# Here, save all runtimes.
@@ -77,6 +77,9 @@ if __name__ == "__main__":
 
 	BENCHMARKS = filter(is_bench, os.listdir(BENCH_DIR))
 	BENCHMARKS = sorted(BENCHMARKS)
+
+	if SCRIPT.endswith(".py"):
+		SCRIPT = "python3 " + SCRIPT
 
 	# Handle data from a finished process. In particular,
 	# update AGGREGATION_LIST and TIMES file.
@@ -121,7 +124,7 @@ if __name__ == "__main__":
 				name = os.path.splitext(bench)[0]
 				input_file = BENCH_DIR + "/" + bench
 				output_file = OUT_DIR + "/" + name + "_out.txt"			
-				command = TIMEOUT + " " + CUT_OFF + " time -p python3 " + SCRIPT + " " + input_file + " > " + output_file + " 2>&1"
+				command = TIMEOUT + " " + CUT_OFF + " time -p " + SCRIPT + " " + input_file + " > " + output_file + " 2>&1"
 				process = Process(target=SPAWN, args=(command,))
 				process.start()
 				ACTIVE.append((process, name, output_file))			
@@ -149,7 +152,7 @@ if __name__ == "__main__":
 			name = os.path.splitext(bench)[0]
 			input_file = BENCH_DIR + "/" + bench
 			output_file = OUT_DIR + "/" + name + "_out.txt"			
-			command = TIMEOUT + " " + CUT_OFF + " time -p python3 " + SCRIPT + " " + input_file + " > " + output_file + " 2>&1"
+			command = TIMEOUT + " " + CUT_OFF + " time -p " + SCRIPT + " " + input_file + " > " + output_file + " 2>&1"
 			process = Process(target=SPAWN, args=(command,))
 			process.start()
 			process.join()
